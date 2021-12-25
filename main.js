@@ -29,3 +29,31 @@ function speak() {
     var utterThis = new SpeechSynthesisUtterance(speak_data_1);
     synth.speak(utterThis);
 }
+
+function check() {
+    img = document.getElementById('captured_image');
+    classifier.classify(img, gotResult);
+}
+
+function gotResult(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        document.getElementById("result_emotion_name").innerHTML = results[0].label;
+
+        prediction_1 = results[0].label;
+
+        speak();
+        if (prediction_1 == "Thumbs Up") {
+            document.getElementById("update_emoji").innerHTML = "&#128077;";
+        }
+        if (prediction_1 == "Cheers") {
+            document.getElementById("update_emoji").innerHTML = "&#128076;";
+        }
+        if (prediction_1 == "2") {
+            document.getElementById("update_emoji").innerHTML = "&#9996;";
+        }
+
+    }
+}
